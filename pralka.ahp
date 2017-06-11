@@ -1,0 +1,68 @@
+Version: 2.0
+Alternatives: &alternatives
+  Whirlpool AWOC74003PBL:
+    cost: 1199
+    speed: 1000
+    capacity: 7
+  Candy GVS44 138DWC3-S:
+    cost: 1399
+    speed: 1300
+    capacity: 6
+  Indesit IWSC 51052 C ECO PL:
+    cost: 799
+    speed: 1000
+    capacity: 5
+  Bosch Serie 6 VarioPerfect WLT24460PL:
+    cost: 1599
+    speed: 1200
+    capacity: 6
+  Samsung WF70F5E0W2W:
+    cost: 1249
+    speed: 1200
+    capacity: 7
+  Electrolux EWS11064SDU:
+    cost: 1249
+    speed: 1000
+    capacity: 6
+  Samsung Addwash WW90K7415OX:
+    cost: 3199
+    speed: 1400
+    capacity: 9
+  Samsung WW70J5346FX:
+    cost: 1899
+    speed: 1200
+    capacity: 7
+  Hotpoint-Ariston RSSF623BPL:
+    cost: 1079
+    speed: 1200
+    capacity: 6
+  Siemens iQ 500 iSensoric WS12T46EPL:
+    cost: 1599
+    speed: 1200
+    capacity: 6.5
+Goal:
+  name: Buy Washing Machine
+  preferences:
+    pairwise:
+      - [Cost, Speed, 3]
+      - [Cost, Capacity, 3]
+      - [Speed, Capacity, 1]
+  children: 
+    Cost:
+      preferences:
+          pairwiseFunction: 
+            function(a1, a2) min(9, max(1/9, a2$cost/a1$cost))
+      children: *alternatives 
+    Speed: 
+      preferences:
+          pairwiseFunction: 
+            function(a1, a2) min(9, max(1/9, a1$speed/a2$speed))
+      children: *alternatives
+    Capacity:
+      preferences:
+          scoreFunction:
+            function(a) a$capacity/2.5
+      children: *alternatives
+#
+# End of Goal Section
+#####################################
